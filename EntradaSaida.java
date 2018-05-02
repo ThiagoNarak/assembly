@@ -22,7 +22,7 @@ public class EntradaSaida {
     public boolean adicionarInstrucao(byte vetor[]){
 
         if (instrucaoArrayList.size()<4){
-            if (posicao==16){
+            if (posicao==32){
                 posicao=0;
             }
             System.out.println("------======= ADICIONANDO AO BUFFER E/S ========------ | INSTRUÇÃO P/ RAM");
@@ -42,7 +42,7 @@ public class EntradaSaida {
             instrucaoArrayList.add(instrucaoRam);
             instrucaoArrayList.add(instrucaoCpu);
 
-            posicao += (getBarramento().getLarguraBarramento()/2);
+            posicao += barramento.getLarguraBarramento()/2;
             return true;
         }else {
             return false;

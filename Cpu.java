@@ -4,13 +4,14 @@ import java.util.Arrays;
 
 public class Cpu {
 
-    private int pi;  //ponteiro de instrucao
-    private int tamanho; //tamanho da instrucao
+    private int pi;         //ponteiro de instrucao
+    private int tamanho;    //tamanho da instrucao
     private EnumCod comando;
     private byte [] resultado;
     //registradores
-//    int regArray [] = new int[5];// 1 ==A 2 ==B 3 == C 4 == D
-    int regArray [] = {0,0,0,0,0};
+//  int regArray [] = new int[5]; // 1 == A 2 == B 3 == C 4 == D
+
+    int regArray [] = {1,2,3,4,5};
     //vetores
     private short vetorShort[];
     private int vetorInt[];
@@ -38,10 +39,6 @@ public class Cpu {
     }
 
     public void excute(){
-
-
-
-
 
 
     }
@@ -85,7 +82,7 @@ public class Cpu {
 
                                     resultado = encoder.encodificar(new String[]{String.valueOf(vetorShort[2])});
                                     pi = vetorShort[1];
-                                    tamanho=2;
+                                    tamanho= 2;
                                     comando = EnumCod.WRITE;
 
                                 }else if (vetorShort[1]>=0 && vetorShort[2]<0) { //mov 0x0000 B
@@ -94,7 +91,7 @@ public class Cpu {
                                     System.out.println("-======    Valor: "+vetorShort[2]);
                                     resultado = encoder.encodificar(new String[]{String.valueOf(regArray[Math.abs(vetorShort[2])])}) ;
                                     pi = vetorShort[1];
-                                    tamanho =2;
+                                    tamanho = 2;
                                     comando = EnumCod.WRITE;
                                 }else if (vetorShort[1]<0 && vetorShort[2]>=0){ //mov B, 0x00
                                     System.out.println("MOV CASO 3");
@@ -117,6 +114,7 @@ public class Cpu {
                                     System.out.println("C: "+regArray[3]);
                                     System.out.println("D: "+regArray[4]);
 
+                                    comando = EnumCod.FINISH;
                                 }else if (vetorShort[1]<0 && vetorShort[2]<0){ //ADD B, C
                                     System.out.println("-====== ADD CASO 2 ======-");
                                     regArray[Math.abs(vetorShort[1])] = regArray[Math.abs(vetorShort[1])] + regArray[Math.abs(vetorShort[2])];
@@ -126,6 +124,9 @@ public class Cpu {
                                     System.out.println("B: "+regArray[2]);
                                     System.out.println("C: "+regArray[3]);
                                     System.out.println("D: "+regArray[4]);
+
+                                    comando = EnumCod.FINISH;
+
                                 }else if (vetorShort[1]>=0 && vetorShort[2]<0){ //ADD 0x00, B
                                     pi= vetorShort[1];
                                     tamanho= 2;
@@ -165,6 +166,8 @@ public class Cpu {
                                     System.out.println("C: " + regArray[3]);
                                     System.out.println("D: " + regArray[4]);
 
+                                    comando = EnumCod.FINISH;
+
                                 }else if (vetorShort[1]>=0&&vetorShort[2]>=0&&vetorShort[3]<0){
                                     System.out.println("-====== IMUL CASO 3 ======-");
                                     pi = vetorShort[1];
@@ -200,6 +203,7 @@ public class Cpu {
                                     System.out.println("C: " + regArray[3]);
                                     System.out.println("D: " + regArray[4]);
 
+                                    comando = EnumCod.FINISH;
                                 }else if (vetorShort[1]>=0){
                                     System.out.println("-====== inc CASO 2 ======-");
                                     pi=vetorShort[1];
@@ -306,7 +310,7 @@ public class Cpu {
                                     pi = vetorInt[1];
                                     tamanho = 4;
                                     comando = EnumCod.WRITE;
-                                }else{ //mov B, 0x00
+                                }else  if (vetorShort[1]<0 && vetorShort[2]>=0){ //mov B, 0x00
                                     System.out.println("MOV CASO 3");
 
                                     pi = vetorInt[2];
@@ -329,6 +333,7 @@ public class Cpu {
                                     System.out.println("C: "+regArray[3]);
                                     System.out.println("D: "+regArray[4]);
 
+                                    comando = EnumCod.FINISH;
                                 }else if (vetorInt[1]<0 && vetorInt[2]<0){ //ADD B, C
                                     System.out.println("-====== ADD CASO 2 ======-");
                                     regArray[Math.abs(vetorInt[1])] = regArray[Math.abs(vetorInt[1])] + regArray[Math.abs(vetorInt[2])];
@@ -338,6 +343,8 @@ public class Cpu {
                                     System.out.println("B: "+regArray[2]);
                                     System.out.println("C: "+regArray[3]);
                                     System.out.println("D: "+regArray[4]);
+                                    comando = EnumCod.FINISH;
+
                                 }else if (vetorInt[1]>=0 && vetorInt[2]<0){ //ADD 0x00, B
                                     pi= vetorInt[1];
                                     tamanho = 4;
@@ -364,6 +371,8 @@ public class Cpu {
                                     System.out.println("B: "+regArray[2]);
                                     System.out.println("C: "+regArray[3]);
                                     System.out.println("D: "+regArray[4]);
+                                    comando = EnumCod.FINISH;
+
                                 }else if (vetorInt[1]<0&&vetorInt[2]<0&&vetorInt[3]>=0) {
                                     System.out.println("-====== IMUL CASO 2 ======-");
                                     regArray[Math.abs(vetorInt[1])] = regArray[Math.abs(vetorInt[2])] * vetorInt[3];
@@ -373,6 +382,8 @@ public class Cpu {
                                     System.out.println("B: " + regArray[2]);
                                     System.out.println("C: " + regArray[3]);
                                     System.out.println("D: " + regArray[4]);
+
+                                    comando = EnumCod.FINISH;
 
                                 }else if (vetorInt[1]>=0&&vetorInt[2]>=0&&vetorInt[3]<0){
                                     System.out.println("-====== IMUL CASO 3 ======-");
@@ -409,6 +420,8 @@ public class Cpu {
                                     System.out.println("C: " + regArray[3]);
                                     System.out.println("D: " + regArray[4]);
 
+                                    comando = EnumCod.FINISH;
+
                                 }else if (vetorInt[1]>=0){
                                     System.out.println("-====== inc CASO 2 ======-");
                                     pi=vetorInt[1];
@@ -435,6 +448,8 @@ public class Cpu {
                             System.out.println("B: "+regArray[2]);
                             System.out.println("C: "+regArray[3]);
                             System.out.println("D: "+regArray[4]);
+                            comando = EnumCod.FINISH;
+
                         }else if(vetorInt[0]==101 && vetorInt[1]>=0 && vetorInt[2]<0){
 
                             int dadosInt = decoder.byteToInt(aux.getPayload())[0];
@@ -541,6 +556,8 @@ public class Cpu {
                                     System.out.println("C: "+regArray[3]);
                                     System.out.println("D: "+regArray[4]);
 
+                                    comando = EnumCod.FINISH;
+
                                 }else if (vetorLong[1]<0 && vetorLong[2]<0){ //ADD B, C
                                     System.out.println("-====== ADD CASO 2 ======-");
                                     regArray[(int) Math.abs(vetorLong[1])] = regArray[(int) Math.abs(vetorLong[1])] + regArray[(int) Math.abs(vetorLong[2])];
@@ -550,6 +567,7 @@ public class Cpu {
                                     System.out.println("B: "+regArray[2]);
                                     System.out.println("C: "+regArray[3]);
                                     System.out.println("D: "+regArray[4]);
+                                    comando = EnumCod.FINISH;
                                 }else if (vetorLong[1]>=0 && vetorLong[2]<0){ //ADD 0x00, B
                                     pi = Integer.parseInt(String.valueOf(vetorLong[1]));
 
@@ -578,6 +596,7 @@ public class Cpu {
                                     System.out.println("B: "+regArray[2]);
                                     System.out.println("C: "+regArray[3]);
                                     System.out.println("D: "+regArray[4]);
+                                    comando = EnumCod.FINISH;
                                 }else if (vetorLong[1]<0&&vetorLong[2]<0&&vetorLong[3]>=0) {
                                     System.out.println("-====== IMUL CASO 2 ======-");
                                     regArray[(int) Math.abs(vetorLong[1])] = (int) (regArray[(int) Math.abs(vetorLong[2])] * vetorLong[3]);
@@ -588,6 +607,7 @@ public class Cpu {
                                     System.out.println("C: " + regArray[3]);
                                     System.out.println("D: " + regArray[4]);
 
+                                    comando = EnumCod.FINISH;
                                 }else if (vetorLong[1]>=0&&vetorLong[2]>=0&&vetorLong[3]<0){
                                     System.out.println("-====== IMUL CASO 3 ======-");
                                     pi = Integer.parseInt(String.valueOf(vetorLong[1]));
@@ -622,7 +642,7 @@ public class Cpu {
                                     System.out.println("B: " + regArray[2]);
                                     System.out.println("C: " + regArray[3]);
                                     System.out.println("D: " + regArray[4]);
-
+                                    comando = EnumCod.FINISH;
                                 }else if (vetorLong[1]>=0){
                                     System.out.println("-====== inc CASO 2 ======-");
                                     pi = Integer.parseInt(String.valueOf(vetorLong[1]));
@@ -650,6 +670,7 @@ public class Cpu {
                             System.out.println("B: "+regArray[2]);
                             System.out.println("C: "+regArray[3]);
                             System.out.println("D: "+regArray[4]);
+                            comando = EnumCod.FINISH;
                         }else if(vetorLong[0]==101 && vetorLong[1]>=0 && vetorLong[2]<0){
 
                             Long dadosLong = decoder.byteToLong(aux.getPayload())[0];

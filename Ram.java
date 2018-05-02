@@ -28,7 +28,6 @@ public class Ram {
                 posicao++;
             }
 
-
         }
         System.out.println("\n-------======= IMPRIMINDO VETOR DA RAM =======---------");
         System.out.println(Arrays.toString(vetorBytesRam));
@@ -58,18 +57,18 @@ public class Ram {
         barramento.sendCpu(new Instrucao(comandoBytes,aux.getCodigo()));
         //apagando os dados lidos pela cpu
         if (aux.getCodigo()== EnumCod.READ){
-            for (int i = aux.getEndereco(); i <aux.getTamanho() ; i++) {
+
+            for (int i = aux.getEndereco(); i <aux.getTamanho()+aux.getEndereco() ; i++) {
                 vetorBytesRam[i] = 0;
             }
         }
-
 
     }
     //CONSTRUTOR
     public Ram(Barramento barramento,int tamanhoRam) {
         this.barramento = barramento;
         this.tamanho = tamanhoRam;
-        this.vetorBytesRam = new byte[tamanhoRam*2];
+        this.vetorBytesRam = new byte[tamanhoRam];
     }
 
     //GET BARRAMENTO

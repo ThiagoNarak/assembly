@@ -14,6 +14,13 @@ public class Instrucao {
         this.endereco = endereco;
         this.codigo = codigo;
     }
+
+    public Instrucao( int endereco,byte[] payload, EnumCod codigo) {
+        this.payload = payload;
+        this.endereco = endereco;
+        this.codigo = codigo;
+    }
+
     //RAM
     public Instrucao(byte[] payload, int endereco,int tamanho, EnumCod codigo) {
         this.payload = payload;
@@ -26,6 +33,10 @@ public class Instrucao {
         this.payload = payload;
         this.codigo = codigo;
 
+    }
+    public Instrucao (byte[] payload,int tamanho){
+        this.tamanho = tamanho;
+        this.payload = payload;
     }
 
     public byte[] getPayload() {
